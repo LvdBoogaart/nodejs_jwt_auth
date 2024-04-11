@@ -15,8 +15,11 @@ const createNewVehicle = async (req, res) => {
 
   try {
     const result = await Vehicle.create({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
+      displayName: req.body.displayName,
+      owner: req.body.owner,
+      users: req.body.users,
+      stats: req.body.stats,
+      isPublic: req.body.isPublic,
     });
 
     res.status(201).json(result);
@@ -31,20 +34,23 @@ const updateVehicle = async (req, res) => {
   }
 
   const vehicle = await Vehicle.findOne({ _id: req.body.id }).exec();
-  if (!employee) {
+  if (!vehicle) {
     return res
       .status(204)
       .json({ message: `No vehicle matches ID ${req.body.id}.` });
   }
-  if (req.body?.firstname) vehicle.firstname = req.body.firstname;
-  if (req.body?.lastname) vehicle.lastname = req.body.lastname;
+  if (req.body?.displayName) vehicle.displayName = req.body.displayName;
+  if (req.body?.owner) vehicle.owner = req.body.owner;
+  if (req.body?.users) vehicle.users = req.body.users;
+  if (req.body?.stats) vehicle.stats = req.body.stats;
+  if (req.body?.isPublic) vehicle.isPublic = req.body.isPublic;
   const result = await vehicle.save();
   res.json(result);
 };
 
 const deleteVehicle = async (req, res) => {
   if (!req?.body?.id)
-    return res.status(400).json({ message: "Employee ID required." });
+    return res.status(400).json({ message: "Vehicle ID required." });
 
   const vehicle = await Vehicle.findOne({ _id: req.body.id }).exec();
   if (!vehicle) {
