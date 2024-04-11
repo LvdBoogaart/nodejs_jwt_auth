@@ -1,24 +1,43 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    username: {
-        type: String,
-        required: true
+const userSchema = new Schema(
+  {
+    userName: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
     },
-    roles: {
-        User: {
-            type: Number,
-            default: 2001
-        },
-        Editor: Number,
-        Admin: Number
+    displayName: {
+      type: String,
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    refreshToken: [String]
-});
+    pools: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Pool",
+      },
+    ],
+    vehicles: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Vehicle",
+      },
+    ],
+    settings: {
+      defaultPool: {
+        type: Schema.Types.ObjectId,
+        ref: "Pool",
+      },
+      defaultDarkTheme: Boolean,
+    },
+    refreshToken: [String],
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
