@@ -33,11 +33,12 @@ const handleLogin = async (req, res) => {
       { expiresIn: "15m" }
     );
 
-    // Changed to let keyword
+    // If no cookie with refresh token was found, the new refreshtoken array equals the current array (different devices), else: filter the token out of the array
     let newRefreshTokenArray = !cookies?.jwt
       ? foundUser.refreshToken
       : foundUser.refreshToken.filter((rt) => rt !== cookies.jwt);
 
+    // if we received a cookie:
     if (cookies?.jwt) {
       /* 
             Scenario added here: 
@@ -57,7 +58,7 @@ const handleLogin = async (req, res) => {
       res.clearCookie("jwt", {
         httpOnly: true,
         sameSite: "None",
-        secure: true,
+        secure: false, //SET TO TRUE FOR PRODUCTION
       });
     }
 
@@ -68,7 +69,7 @@ const handleLogin = async (req, res) => {
     // Creates Secure Cookie with refresh token
     res.cookie("jwt", newRefreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: false, //SET TO TRUE FOR PRODUCTION
       sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000,
     });

@@ -3,17 +3,17 @@ const Schema = mongoose.Schema;
 
 const registrationSchema = new Schema(
   {
-    user: {
+    REF_userId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
-    vehicle: {
+    REF_vehicleId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Vehicle",
     },
-    pool: {
+    REF_poolId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Pool",

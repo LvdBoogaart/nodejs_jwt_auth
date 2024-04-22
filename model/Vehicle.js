@@ -7,16 +7,24 @@ const vehicleSchema = new Schema(
       type: String,
       required: true,
     },
-    owner: {
+    REF_ownerId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
     users: [
       {
-        userId: {
+        REF_userId: {
           type: Schema.Types.ObjectId,
           ref: "User",
+        },
+      },
+    ],
+    pools: [
+      {
+        REF_poolId: {
+          type: Schema.Types.ObjectId,
+          ref: "Pool",
         },
       },
     ],

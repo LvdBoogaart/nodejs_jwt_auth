@@ -18,26 +18,32 @@ const userSchema = new Schema(
     },
     pools: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Pool",
+        REF_poolId: { type: Schema.Types.ObjectId, ref: "Pool" },
       },
     ],
     vehicles: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Vehicle",
+        REF_vehicleId: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
       },
     ],
-    settings: {
+    userSettings: {
       defaultPool: {
         type: Schema.Types.ObjectId,
         ref: "Pool",
       },
       defaultDarkTheme: Boolean,
+      firstSetupComplete: {
+        type: Boolean,
+        default: false,
+      },
     },
     refreshToken: [String],
   },
-  { timestamps: true }
+  { timestamps: true },
+  { versionKey: false }
 );
 
 module.exports = mongoose.model("User", userSchema);

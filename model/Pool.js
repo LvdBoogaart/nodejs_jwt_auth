@@ -7,21 +7,23 @@ const poolSchema = new Schema(
       type: String,
       required: true,
     },
-    owner: {
+    REF_ownerId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     users: [
       {
-        userId: { type: Schema.Types.ObjectId, ref: "User" },
+        REF_userId: { type: Schema.Types.ObjectId, ref: "User" },
         userType: { type: String, default: "user" },
       },
     ],
     vehicles: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Vehicle",
+        REF_vehicleId: {
+          type: Schema.Types.ObjectId,
+          ref: "Vehicle",
+        },
       },
     ],
   },
