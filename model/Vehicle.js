@@ -36,6 +36,7 @@ const vehicleSchema = new Schema(
       insuranceCost: Number,
       maintenanceCost: Number,
       writeOffpKm: Number,
+      image: String,
     },
     isPublic: {
       type: Boolean,
